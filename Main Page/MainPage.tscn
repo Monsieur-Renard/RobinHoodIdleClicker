@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Main Page/Images/GrassBackground.png" type="Texture" id=1]
+[ext_resource path="res://Main Page/Top Menu/TopMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main Page/Buildings/BuildingStone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main Page/Buildings/BuildingWood.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main Page/Buildings/BuildingGold.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Main Page/Buildings/BuildingFood.tscn" type="PackedScene" id=6]
+
+[node name="MainPage" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 64, 64 )
+
+[node name="TopMenu" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="BuildingWood" parent="Buildings" instance=ExtResource( 4 )]
+position = Vector2( 654.071, 141.493 )
+
+[node name="BuildingStone" parent="Buildings" instance=ExtResource( 3 )]
+position = Vector2( 89.4341, 408.461 )
+
+[node name="BuildingFood" parent="Buildings" instance=ExtResource( 6 )]
+position = Vector2( 504.569, 359.072 )
+
+[node name="BuildingGold" parent="Buildings" instance=ExtResource( 5 )]
+position = Vector2( 868.98, 439.162 )
+BaseValue = 0.1
