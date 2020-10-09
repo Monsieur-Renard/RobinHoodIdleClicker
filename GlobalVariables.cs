@@ -1,12 +1,13 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public class GlobalVariables : Node
 {
-    public float WoodAmount;
-    public float StoneAmount;
-    public float FoodAmount;
-    public float GoldAmount;
+    public double WoodAmount;
+    public double StoneAmount;
+    public double FoodAmount;
+    public double GoldAmount;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

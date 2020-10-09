@@ -3,4 +3,4 @@
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/RessourceAmount.tscn" type="PackedScene" id=1]
 
 [node name="GoldAmount" instance=ExtResource( 1 )]
-RessourceType = "gold"
+RessourceType = "Gold"

@@ -11,60 +11,48 @@ public class RessourceAmount : HBoxContainer
     {
         var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
+        // Set the ressource amount on load
         switch (RessourceType)
         {      
-            case "wood":          
+            case "Wood":          
                 GetNode<Label>("Value").Text = globalVariables.WoodAmount.ToString();
-                var buildingNode = GetTree().Root.FindNode("BuildingWood", true, false);
-                buildingNode.Connect("WoodChange", this, "OnWoodAmountChange");
                 break;
-            case "stone":
+            case "Stone":
                 GetNode<Label>("Value").Text = globalVariables.StoneAmount.ToString();
-                buildingNode = GetTree().Root.FindNode("BuildingStone", true, false);
-                buildingNode.Connect("StoneChange", this, "OnStoneAmountChange");
                 break;
-            case "food":
+            case "Food":
                 GetNode<Label>("Value").Text = globalVariables.FoodAmount.ToString();
-                buildingNode = GetTree().Root.FindNode("BuildingFood", true, false);
-                buildingNode.Connect("FoodChange", this, "OnFoodAmountChange");
                 break;
-            case "gold":
-                GetNode<Label>("Value").Text = globalVariables.GoldAmount.ToString();              
-                buildingNode = GetTree().Root.FindNode("BuildingGold", true, false);
-                buildingNode.Connect("GoldChange", this, "OnGoldAmountChange");
+            case "Gold":
+                GetNode<Label>("Value").Text = globalVariables.GoldAmount.ToString();                            
                 break;
             default:
                 break;
         }
     }
 
-    public void OnWoodAmountChange()
-    {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-        GetNode<Label>("Value").Text = globalVariables.WoodAmount.ToString();
-    }
-
-    public void OnStoneAmountChange()
-    {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-        GetNode<Label>("Value").Text = globalVariables.StoneAmount.ToString();
-    }
-
-    public void OnGoldAmountChange()
-    {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-        GetNode<Label>("Value").Text = globalVariables.GoldAmount.ToString();
-    }
-
-    public void OnFoodAmountChange()
-    {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-        GetNode<Label>("Value").Text = globalVariables.FoodAmount.ToString();
-    }
-
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
+    public override void _Process(float delta)
+    {
+        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
+
+        // Update the amount every frame
+        switch (RessourceType)
+        {
+            case "Wood":
+                GetNode<Label>("Value").Text = globalVariables.WoodAmount.ToString();
+                break;
+            case "Stone":
+                GetNode<Label>("Value").Text = globalVariables.StoneAmount.ToString();
+                break;
+            case "Food":
+                GetNode<Label>("Value").Text = globalVariables.FoodAmount.ToString();
+                break;
+            case "Gold":
+                GetNode<Label>("Value").Text = globalVariables.GoldAmount.ToString();
+                break;
+            default:
+                break;
+        }
+    }
 }

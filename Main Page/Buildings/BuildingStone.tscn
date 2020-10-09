@@ -4,8 +4,11 @@
 [ext_resource path="res://Main Page/Images/Mine.png" type="Texture" id=2]
 
 [node name="BuildingStone" instance=ExtResource( 1 )]
-RessourceType = "stone"
+RessourceType = "Stone"
 BaseValue = 1.0
 
-[node name="TextureButton" parent="." index="0"]
+[node name="NameLevel" parent="VBoxContainer" index="0"]
+text = "Mine - Level 1"
+
+[node name="TextureButton" parent="VBoxContainer" index="3"]
 texture_normal = ExtResource( 2 )

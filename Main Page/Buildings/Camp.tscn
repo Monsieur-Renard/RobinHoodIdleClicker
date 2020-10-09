@@ -1,0 +1,138 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Main Page/Top Menu/Ressources Amount/GoldAmount.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main Page/Top Menu/Ressources Amount/FoodAmount.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main Page/Images/Camp.png" type="Texture" id=4]
+[ext_resource path="res://Main Page/Buildings/Camp.cs" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 1 )
+
+[node name="Camp" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 408.914
+margin_top = 283.52
+margin_right = 558.914
+margin_bottom = 433.52
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RessourceCost" type="HBoxContainer" parent="."]
+margin_left = 408.914
+margin_top = 253.619
+margin_right = 558.914
+margin_bottom = 281.619
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoldAmount" parent="RessourceCost" instance=ExtResource( 2 )]
+margin_right = 42.0
+script = null
+
+[node name="MarginContainer" type="MarginContainer" parent="RessourceCost"]
+margin_left = 46.0
+margin_right = 103.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+
+[node name="FoodAmount" parent="RessourceCost" instance=ExtResource( 3 )]
+margin_left = 107.0
+margin_right = 150.0
+script = null
+
+[node name="Assignement" type="VBoxContainer" parent="."]
+margin_left = 370.085
+margin_top = 73.4161
+margin_right = 612.085
+margin_bottom = 246.416
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Assignement"]
+margin_right = 242.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 2 )
+text = "Assign a merryman
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Forest" type="HBoxContainer" parent="Assignement"]
+margin_top = 63.0
+margin_right = 242.0
+margin_bottom = 97.0
+
+[node name="ForestLabel" type="Label" parent="Assignement/Forest"]
+margin_top = 3.0
+margin_right = 144.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+
+[node name="ForestButton" type="Button" parent="Assignement/Forest"]
+margin_left = 148.0
+margin_right = 242.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 4 )
+text = "Assign"
+
+[node name="Mine" type="HBoxContainer" parent="Assignement"]
+margin_top = 101.0
+margin_right = 242.0
+margin_bottom = 135.0
+
+[node name="MineLabel" type="Label" parent="Assignement/Mine"]
+margin_top = 3.0
+margin_right = 144.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+
+[node name="MineButton" type="Button" parent="Assignement/Mine"]
+margin_left = 148.0
+margin_right = 242.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 4 )
+text = "Assign"
+
+[node name="Field" type="HBoxContainer" parent="Assignement"]
+margin_top = 139.0
+margin_right = 242.0
+margin_bottom = 173.0
+
+[node name="FieldLabel" type="Label" parent="Assignement/Field"]
+margin_top = 3.0
+margin_right = 144.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+
+[node name="FieldButton" type="Button" parent="Assignement/Field"]
+margin_left = 148.0
+margin_right = 242.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 4 )
+text = "Assign"
+[connection signal="pressed" from="Assignement/Forest/ForestButton" to="." method="OnForestButtonPressed"]
+[connection signal="pressed" from="Assignement/Mine/MineButton" to="." method="OnMineButtonPressed"]
+[connection signal="pressed" from="Assignement/Field/FieldButton" to="." method="OnFieldButtonPressed"]

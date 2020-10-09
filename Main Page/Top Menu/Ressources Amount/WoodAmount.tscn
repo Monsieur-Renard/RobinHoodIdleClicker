@@ -4,7 +4,7 @@
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/RessourceAmount.tscn" type="PackedScene" id=2]
 
 [node name="WoodAmount" instance=ExtResource( 2 )]
-RessourceType = "wood"
+RessourceType = "Wood"
 
 [node name="Category" parent="." index="0"]
 margin_right = 25.0
