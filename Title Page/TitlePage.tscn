@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Title Page/Images/Logo.png" type="Texture" id=2]
+[ext_resource path="res://Title Page/TitlePage.cs" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -26,9 +27,15 @@ custom_constants/margin_right = 120
 custom_constants/margin_top = 80
 custom_constants/margin_left = 120
 custom_constants/margin_bottom = 50
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Logo" type="Sprite" parent="."]
+position = Vector2( 224.389, 46.3257 )
+texture = ExtResource( 2 )
+centered = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 margin_left = 120.0
@@ -38,59 +45,57 @@ margin_bottom = 550.0
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer2"]
 margin_right = 784.0
-margin_bottom = 300.0
+margin_bottom = 233.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Logo" type="TextureRect" parent="VBoxContainer2/CenterContainer"]
-margin_left = 92.0
-margin_right = 692.0
-margin_bottom = 300.0
-texture = ExtResource( 2 )
-
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
-margin_top = 304.0
+margin_top = 237.0
 margin_right = 784.0
 margin_bottom = 470.0
 size_flags_vertical = 3
 
 [node name="Menu Options" type="VBoxContainer" parent="VBoxContainer2/VBoxContainer"]
 margin_right = 784.0
-margin_bottom = 141.0
+margin_bottom = 208.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Continue" type="Label" parent="VBoxContainer2/VBoxContainer/Menu Options"]
-margin_top = 32.0
+margin_top = 65.0
 margin_right = 784.0
-margin_bottom = 55.0
+margin_bottom = 88.0
 custom_fonts/font = SubResource( 1 )
 text = "Continue"
 align = 1
 valign = 1
 
 [node name="New Game" type="Label" parent="VBoxContainer2/VBoxContainer/Menu Options"]
-margin_top = 59.0
+margin_top = 92.0
 margin_right = 784.0
-margin_bottom = 82.0
+margin_bottom = 115.0
 custom_fonts/font = SubResource( 2 )
 text = "New Game"
 align = 1
 valign = 1
 
 [node name="Options" type="Label" parent="VBoxContainer2/VBoxContainer/Menu Options"]
-margin_top = 86.0
+margin_top = 119.0
 margin_right = 784.0
-margin_bottom = 109.0
+margin_bottom = 142.0
 custom_fonts/font = SubResource( 3 )
 text = "Options"
 align = 1
 
 [node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer"]
-margin_top = 145.0
+margin_top = 212.0
 margin_right = 784.0
-margin_bottom = 166.0
+margin_bottom = 233.0
 custom_fonts/font = SubResource( 4 )
 text = "Version 0.1"
 align = 1
 valign = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

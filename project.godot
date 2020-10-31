@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Robin Hood Idle Clicker"
-run/main_scene="res://Main Page/MainPage.tscn"
+run/main_scene="res://Title Page/TitlePage.tscn"
 config/icon="res://icon.png"
 
 [autoload]
