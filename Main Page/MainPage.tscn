@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main Page/Images/GrassBackground.png" type="Texture" id=1]
 [ext_resource path="res://Main Page/Top Menu/TopMenu.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Main Page/Buildings/BuildingGold.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Main Page/Buildings/BuildingFood.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main Page/Buildings/Camp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Main Page/Buildings/BuildingForge.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Forge/Forge.tscn" type="PackedScene" id=9]
 
 [node name="MainPage" type="MarginContainer"]
 anchor_right = 1.0
@@ -54,3 +56,13 @@ BuildingName = "Mine"
 
 [node name="Camp" parent="Buildings" instance=ExtResource( 7 )]
 position = Vector2( -307.013, -74.751 )
+
+[node name="Forge" parent="Buildings" instance=ExtResource( 8 )]
+position = Vector2( 843.618, 148.167 )
+
+[node name="ForgeWindow" parent="." instance=ExtResource( 9 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0

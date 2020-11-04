@@ -40,33 +40,33 @@ margin_right = 1014.0
 margin_bottom = 134.0
 
 [node name="RessourcesAmount" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 431.0
+margin_right = 714.0
 margin_bottom = 124.0
 size_flags_horizontal = 3
 
 [node name="GoldAmount" parent="HBoxContainer/RessourcesAmount" instance=ExtResource( 4 )]
-margin_right = 431.0
+margin_right = 714.0
 
 [node name="WoodAmount" parent="HBoxContainer/RessourcesAmount" instance=ExtResource( 1 )]
 margin_top = 32.0
-margin_right = 431.0
+margin_right = 714.0
 margin_bottom = 60.0
 
 [node name="StoneAmount" parent="HBoxContainer/RessourcesAmount" instance=ExtResource( 2 )]
 margin_top = 64.0
-margin_right = 431.0
+margin_right = 714.0
 margin_bottom = 92.0
 
 [node name="FoodAmount" parent="HBoxContainer/RessourcesAmount" instance=ExtResource( 3 )]
 margin_top = 96.0
-margin_right = 431.0
+margin_right = 714.0
 margin_bottom = 124.0
 
 [node name="RessourcesGain" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 435.0
-margin_right = 584.0
+margin_left = 718.0
+margin_right = 867.0
 margin_bottom = 124.0
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 
 [node name="GoldGain" parent="HBoxContainer/RessourcesGain" instance=ExtResource( 7 )]
 margin_right = 149.0

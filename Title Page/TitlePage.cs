@@ -15,7 +15,6 @@ public class TitlePage : MarginContainer
         w = logo.Texture.GetWidth();
         logo.Scale = new Vector2(0.1f, 0.1f);
         logo.Position = new Vector2(GetViewport().Size.x / 2 - w * i/2, GetViewport().Size.y / 7 * 2 - h*i/2);
-        GD.Print(logo.Position);
         var timer = GetNode<Timer>("Timer");
         timer.Start();
     }
@@ -33,12 +32,16 @@ public class TitlePage : MarginContainer
         i += 0.02f;
         logo.Scale = new Vector2(0.1f + i, 0.1f + i);
         logo.Position = new Vector2(GetViewport().Size.x / 2 - w * i / 2, GetViewport().Size.y / 7 * 2 - h * i / 2);
-        GD.Print(i);
         if (i >= 1f)
         {
             logo.Position = new Vector2(GetViewport().Size.x / 2 - w * i / 2, GetViewport().Size.y / 7 * 2 - h * i / 2);
             timer.Stop();
         }
         
+    }
+
+    public void OnNewGamePressed()
+    {
+        GetTree().ChangeScene("res://Main Page/MainPage.tscn");
     }
 }
