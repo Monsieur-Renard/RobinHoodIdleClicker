@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main Page/Buildings/Building.cs" type="Script" id=1]
 [ext_resource path="res://Main Page/Images/Forest.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/StoneAmount.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/FoodAmount.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/WoodAmount.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Main Page/Images/Expand.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -28,7 +29,8 @@ __meta__ = {
 }
 
 [node name="NameLevel" type="Label" parent="VBoxContainer"]
-margin_right = 183.0
+visible = false
+margin_right = 165.0
 margin_bottom = 28.0
 custom_fonts/font = SubResource( 1 )
 text = "Field - Level 1"
@@ -38,6 +40,7 @@ __meta__ = {
 }
 
 [node name="RessourcesCost" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 margin_top = 32.0
 margin_right = 183.0
 margin_bottom = 60.0
@@ -65,16 +68,23 @@ margin_right = 183.0
 script = null
 
 [node name="UpgradeButton" type="Button" parent="VBoxContainer"]
-margin_top = 64.0
+visible = false
+margin_top = 48.0
 margin_right = 183.0
-margin_bottom = 98.0
+margin_bottom = 82.0
 custom_fonts/font = SubResource( 2 )
 text = "Upgrade"
 
+[node name="ExpandButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 2.0
+margin_right = 150.0
+margin_bottom = 18.0
+texture_normal = ExtResource( 8 )
+
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
-margin_top = 102.0
-margin_right = 183.0
-margin_bottom = 252.0
+margin_top = 22.0
+margin_right = 150.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 150, 150 )
 texture_normal = ExtResource( 2 )
 expand = true
@@ -85,5 +95,6 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/TextureButton" to="." method="OnTextureButtonPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

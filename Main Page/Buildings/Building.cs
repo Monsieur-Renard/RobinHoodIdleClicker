@@ -23,6 +23,7 @@ public class Building : Node2D
     Label woodCostLabel;
     Label stoneCostLabel;
     Label foodCostLabel;
+    HBoxContainer ressourcesCost;
     Button upgradeButton;
     RessourceCost cost;
 
@@ -41,6 +42,7 @@ public class Building : Node2D
         woodCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/WoodAmount/Value");
         stoneCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/StoneAmount/Value");
         foodCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/FoodAmount/Value");
+        ressourcesCost = GetNode<HBoxContainer>("VBoxContainer/RessourcesCost");
 
         // Initializing building upgrade cost
         cost = _upgradeCost[Level];
@@ -112,6 +114,15 @@ public class Building : Node2D
         woodCostLabel.Text = cost.woodCost.ToString();
         stoneCostLabel.Text = cost.stoneCost.ToString();
         foodCostLabel.Text = cost.foodCost.ToString();
+    }
+
+    // Display building's information
+    public void OnExpandButtonPressed()
+    {
+       //nameLevel.Position
+        nameLevel.Visible = true;
+        ressourcesCost.Visible = true;
+        upgradeButton.Visible = true;
     }
 
     public void OnTimerTimeout()
