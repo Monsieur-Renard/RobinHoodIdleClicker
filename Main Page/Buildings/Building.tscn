@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main Page/Buildings/Building.cs" type="Script" id=1]
 [ext_resource path="res://Main Page/Images/Forest.png" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Main Page/Images/Expand.png" type="Texture" id=8]
 [ext_resource path="res://Main Page/Images/Background display container.png" type="Texture" id=9]
 [ext_resource path="res://Main Page/Images/Close.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sounds/Mine.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/Field.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sounds/Forest.wav" type="AudioStream" id=13]
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
@@ -59,7 +62,7 @@ margin_bottom = 54.0
 custom_fonts/font = SubResource( 2 )
 text = "Upgrade"
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+[node name="ImageButton" type="TextureButton" parent="VBoxContainer"]
 margin_top = 58.0
 margin_right = 150.0
 margin_bottom = 208.0
@@ -117,8 +120,17 @@ script = null
 margin_left = 140.0
 margin_right = 183.0
 script = null
+
+[node name="FieldSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="MineSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="ForestSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
 [connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="OnCloseButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/TextureButton" to="." method="OnTextureButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/ImageButton" to="." method="OnTextureButtonPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

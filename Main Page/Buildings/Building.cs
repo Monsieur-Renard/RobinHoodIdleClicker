@@ -18,17 +18,13 @@ public class Building : Node2D
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
     private int MaxLevel = 100;
 
-    Label nameLevel;
-    Label goldCostLabel;
-    Label woodCostLabel;
-    Label stoneCostLabel;
-    Label foodCostLabel;
+    Label nameLevel, goldCostLabel, woodCostLabel, stoneCostLabel, foodCostLabel;
     Button upgradeButton;
     RessourceCost cost;
     VBoxContainer displayContainer;
     NinePatchRect background;
-    TextureButton expandButton;
-    TextureButton closeButton;
+    TextureButton expandButton, closeButton, imageButton;
+    AudioStreamPlayer fieldSound, mineSound, forestSound;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -53,13 +49,18 @@ public class Building : Node2D
         stoneCostLabel.Text = cost.stoneCost.ToString();
         foodCostLabel.Text = cost.foodCost.ToString();
 
-        // Initialize the upgrade Button
+        // Initialize remaining nodes
         upgradeButton = GetNode<Button>("VBoxContainer/UpgradeButton");
-
         displayContainer = GetNode<VBoxContainer>("DisplayContainer");
         background = GetNode<NinePatchRect>("Background");
         expandButton = GetNode<TextureButton>("VBoxContainer/ExpandButton");
         closeButton = GetNode<TextureButton>("VBoxContainer/CloseButton");
+        imageButton = GetNode<TextureButton>("VBoxContainer/ImageButton");
+
+        // Initialize sounds
+        fieldSound = GetNode<AudioStreamPlayer>("FieldSound");
+        mineSound = GetNode<AudioStreamPlayer>("MineSound");
+        forestSound = GetNode<AudioStreamPlayer>("ForestSound");
     }
 
     public override void _Process(float delta)
@@ -73,6 +74,19 @@ public class Building : Node2D
         {
             upgradeButton.Disabled = false;
         }
+
+        //Check if there's enough ressource to get enable gold button
+        if (RessourceType == "Gold")
+        {
+            if (!EnoughRessourcesForGold())
+            {
+                imageButton.Disabled = true;
+            }
+            else
+            {
+                imageButton.Disabled = false;
+            }
+        }
     }
 
     public void OnTextureButtonPressed()
@@ -80,21 +94,31 @@ public class Building : Node2D
         var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
         double amountGained = BaseValue * Level;
+        GD.Print(amountGained);
+        GD.Print("Base level : " + BaseValue);
+        forestSound.Stop();
+        mineSound.Stop();
+        fieldSound.Stop();
 
         // Ressource gain
         switch (RessourceType)
         {
             case "Wood":
                 globalVariables.WoodAmount += amountGained;
+                forestSound.Play();
                 break;
             case "Stone":
                 globalVariables.StoneAmount += amountGained;
+                mineSound.Play();
                 break;
             case "Food":
                 globalVariables.FoodAmount += amountGained;
+                fieldSound.Play();
                 break;
             case "Gold":
                 globalVariables.GoldAmount += amountGained;
+                globalVariables.StoneAmount -= amountGained / 2;
+                globalVariables.WoodAmount -= amountGained / 2;
                 break;
             default:
                 break;
@@ -175,6 +199,20 @@ public class Building : Node2D
         var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
         if (globalVariables.GoldAmount >= cost.goldCost && globalVariables.WoodAmount >= cost.woodCost && globalVariables.StoneAmount >= cost.stoneCost && globalVariables.FoodAmount >= cost.foodCost && Level < MaxLevel)
+        {
+            enoughRessources = true;
+        }
+
+        return enoughRessources;
+    }
+
+    // Check if player has enough ressources to buy gold
+    public bool EnoughRessourcesForGold()
+    {
+        double amountGained = BaseValue * Level;
+        bool enoughRessources = false;
+        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
+        if ((globalVariables.WoodAmount / 2 >= amountGained) && (globalVariables.StoneAmount / 2 >= amountGained))
         {
             enoughRessources = true;
         }

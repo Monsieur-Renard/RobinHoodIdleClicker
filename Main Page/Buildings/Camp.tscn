@@ -30,7 +30,7 @@ margin_left = 370.085
 margin_top = 73.4161
 margin_right = 622.085
 margin_bottom = 283.416
-rect_min_size = Vector2( 258, 212 )
+rect_min_size = Vector2( 265, 212 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -43,9 +43,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExpandButton" type="TextureButton" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 150.0
-margin_bottom = 16.0
+
+[node name="ExpandButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 4.0
+margin_right = 150.0
+margin_bottom = 20.0
 texture_normal = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -62,9 +66,9 @@ __meta__ = {
 }
 
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
-margin_top = 20.0
+margin_top = 24.0
 margin_right = 150.0
-margin_bottom = 170.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 150, 150 )
 texture_normal = ExtResource( 4 )
 expand = true

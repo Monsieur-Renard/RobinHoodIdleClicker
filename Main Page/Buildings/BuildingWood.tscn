@@ -5,16 +5,5 @@
 [node name="BuildingWood" instance=ExtResource( 1 )]
 RessourceType = "Wood"
 BaseValue = 1.0
-
-[node name="NameLevel" parent="VBoxContainer" index="0"]
-margin_right = 185.0
-text = "Forest - Level 1"
-
-[node name="RessourcesCost" parent="VBoxContainer" index="1"]
-margin_right = 185.0
-
-[node name="Button" parent="VBoxContainer" index="2"]
-margin_right = 185.0
-
-[node name="TextureButton" parent="VBoxContainer" index="3"]
-margin_right = 185.0
+Level = 1
+BuildingName = "Forest"

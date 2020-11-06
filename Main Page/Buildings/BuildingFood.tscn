@@ -6,6 +6,8 @@
 [node name="BuildingFood" instance=ExtResource( 2 )]
 RessourceType = "Food"
 BaseValue = 0.5
+Level = 1
+BuildingName = "Field"
 
-[node name="TextureButton" parent="VBoxContainer" index="3"]
+[node name="ImageButton" parent="VBoxContainer" index="3"]
 texture_normal = ExtResource( 1 )
