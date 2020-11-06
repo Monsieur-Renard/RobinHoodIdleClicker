@@ -23,9 +23,12 @@ public class Building : Node2D
     Label woodCostLabel;
     Label stoneCostLabel;
     Label foodCostLabel;
-    HBoxContainer ressourcesCost;
     Button upgradeButton;
     RessourceCost cost;
+    VBoxContainer displayContainer;
+    NinePatchRect background;
+    TextureButton expandButton;
+    TextureButton closeButton;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -34,15 +37,14 @@ public class Building : Node2D
         PopulateCostDictionnary();
 
         // Initializing name and level of building
-        nameLevel = GetNode<Label>("VBoxContainer/NameLevel");
+        nameLevel = GetNode<Label>("DisplayContainer/NameLevel");
         nameLevel.Text = BuildingName + " - lvl " + Level;
 
         // Initializing ressource amount labels
-        goldCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/GoldAmount/Value");
-        woodCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/WoodAmount/Value");
-        stoneCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/StoneAmount/Value");
-        foodCostLabel = GetNode<Label>("VBoxContainer/RessourcesCost/FoodAmount/Value");
-        ressourcesCost = GetNode<HBoxContainer>("VBoxContainer/RessourcesCost");
+        goldCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/GoldAmount/Value");
+        woodCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/WoodAmount/Value");
+        stoneCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/StoneAmount/Value");
+        foodCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/FoodAmount/Value");
 
         // Initializing building upgrade cost
         cost = _upgradeCost[Level];
@@ -53,6 +55,11 @@ public class Building : Node2D
 
         // Initialize the upgrade Button
         upgradeButton = GetNode<Button>("VBoxContainer/UpgradeButton");
+
+        displayContainer = GetNode<VBoxContainer>("DisplayContainer");
+        background = GetNode<NinePatchRect>("Background");
+        expandButton = GetNode<TextureButton>("VBoxContainer/ExpandButton");
+        closeButton = GetNode<TextureButton>("VBoxContainer/CloseButton");
     }
 
     public override void _Process(float delta)
@@ -119,10 +126,21 @@ public class Building : Node2D
     // Display building's information
     public void OnExpandButtonPressed()
     {
-       //nameLevel.Position
-        nameLevel.Visible = true;
-        ressourcesCost.Visible = true;
-        upgradeButton.Visible = true;
+        background.Visible = true;
+        background.SetGlobalPosition(new Vector2(398, 8), false);
+        displayContainer.Visible = true;
+        displayContainer.SetGlobalPosition(new Vector2(400, 10), false);
+        closeButton.Visible = true;
+        expandButton.Visible = false;
+    }
+
+    // Hide building's information
+    public void OnCloseButtonPressed()
+    {
+        background.Visible = false;
+        displayContainer.Visible = false;
+        closeButton.Visible = false;
+        expandButton.Visible = true;
     }
 
     public void OnTimerTimeout()

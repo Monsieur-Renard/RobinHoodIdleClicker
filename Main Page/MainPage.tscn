@@ -31,14 +31,14 @@ margin_bottom = 600.0
 [node name="Buildings" type="Node2D" parent="."]
 
 [node name="BuildingFood" parent="Buildings" instance=ExtResource( 6 )]
-position = Vector2( 309.683, 236.267 )
+position = Vector2( 341.719, 260.294 )
 BaseValue = 1.0
 Level = 1
 BuildingName = "Field"
 NumberOfWorkers = 2
 
 [node name="BuildingGold" parent="Buildings" instance=ExtResource( 5 )]
-position = Vector2( 776.876, 349.728 )
+position = Vector2( 856.966, 413.8 )
 BaseValue = 1.0
 Level = 3
 BuildingName = "Village"
@@ -50,12 +50,12 @@ BuildingName = "Forest"
 NumberOfWorkers = 1
 
 [node name="BuildingStone" parent="Buildings" instance=ExtResource( 3 )]
-position = Vector2( 29.3665, 348.393 )
+position = Vector2( 22.6923, 399.117 )
 Level = 1
 BuildingName = "Mine"
 
 [node name="Camp" parent="Buildings" instance=ExtResource( 7 )]
-position = Vector2( -307.013, -74.751 )
+position = Vector2( 82.76, 150.837 )
 
 [node name="Forge" parent="Buildings" instance=ExtResource( 8 )]
 position = Vector2( 843.618, 148.167 )

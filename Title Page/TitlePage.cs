@@ -29,7 +29,7 @@ public class TitlePage : MarginContainer
     {
         var timer = GetNode<Timer>("Timer");
 
-        i += 0.02f;
+        i += 0.04f;
         logo.Scale = new Vector2(0.1f + i, 0.1f + i);
         logo.Position = new Vector2(GetViewport().Size.x / 2 - w * i / 2, GetViewport().Size.y / 7 * 2 - h * i / 2);
         if (i >= 1f)

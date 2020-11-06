@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Main Page/Buildings/Building.cs" type="Script" id=1]
 [ext_resource path="res://Main Page/Images/Forest.png" type="Texture" id=2]
@@ -8,17 +8,29 @@
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/FoodAmount.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/WoodAmount.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main Page/Images/Expand.png" type="Texture" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 3 )
+[ext_resource path="res://Main Page/Images/Background display container.png" type="Texture" id=9]
+[ext_resource path="res://Main Page/Images/Close.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
 [node name="Building" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Background" type="NinePatchRect" parent="."]
+visible = false
+margin_right = 187.0
+margin_bottom = 105.0
+rect_min_size = Vector2( 187, 105 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -28,63 +40,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLevel" type="Label" parent="VBoxContainer"]
+[node name="ExpandButton" type="TextureButton" parent="VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 16.0
+texture_normal = ExtResource( 8 )
+
+[node name="CloseButton" type="TextureButton" parent="VBoxContainer"]
 visible = false
-margin_right = 165.0
-margin_bottom = 28.0
-custom_fonts/font = SubResource( 1 )
-text = "Field - Level 1"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RessourcesCost" type="HBoxContainer" parent="VBoxContainer"]
-visible = false
-margin_top = 32.0
-margin_right = 183.0
-margin_bottom = 60.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="GoldAmount" parent="VBoxContainer/RessourcesCost" instance=ExtResource( 4 )]
-margin_right = 42.0
-script = null
-
-[node name="WoodAmount" parent="VBoxContainer/RessourcesCost" instance=ExtResource( 7 )]
-margin_left = 46.0
-margin_right = 89.0
-script = null
-
-[node name="StoneAmount" parent="VBoxContainer/RessourcesCost" instance=ExtResource( 5 )]
-margin_left = 93.0
-margin_right = 136.0
-script = null
-
-[node name="FoodAmount" parent="VBoxContainer/RessourcesCost" instance=ExtResource( 6 )]
-margin_left = 140.0
-margin_right = 183.0
-script = null
+margin_top = 20.0
+margin_right = 150.0
+margin_bottom = 36.0
+texture_normal = ExtResource( 10 )
 
 [node name="UpgradeButton" type="Button" parent="VBoxContainer"]
-visible = false
-margin_top = 48.0
-margin_right = 183.0
-margin_bottom = 82.0
+margin_top = 20.0
+margin_right = 150.0
+margin_bottom = 54.0
 custom_fonts/font = SubResource( 2 )
 text = "Upgrade"
 
-[node name="ExpandButton" type="TextureButton" parent="VBoxContainer"]
-margin_top = 2.0
-margin_right = 150.0
-margin_bottom = 18.0
-texture_normal = ExtResource( 8 )
-
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
-margin_top = 22.0
+margin_top = 58.0
 margin_right = 150.0
-margin_bottom = 172.0
+margin_bottom = 208.0
 rect_min_size = Vector2( 150, 150 )
 texture_normal = ExtResource( 2 )
 expand = true
@@ -94,7 +72,53 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-[connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
+
+[node name="DisplayContainer" type="VBoxContainer" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLevel" type="Label" parent="DisplayContainer"]
+margin_right = 183.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+text = "Field - Level 1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RessourcesCost" type="HBoxContainer" parent="DisplayContainer"]
+margin_top = 32.0
+margin_right = 183.0
+margin_bottom = 60.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoldAmount" parent="DisplayContainer/RessourcesCost" instance=ExtResource( 4 )]
+margin_right = 42.0
+script = null
+
+[node name="WoodAmount" parent="DisplayContainer/RessourcesCost" instance=ExtResource( 7 )]
+margin_left = 46.0
+margin_right = 89.0
+script = null
+
+[node name="StoneAmount" parent="DisplayContainer/RessourcesCost" instance=ExtResource( 5 )]
+margin_left = 93.0
+margin_right = 136.0
+script = null
+
+[node name="FoodAmount" parent="DisplayContainer/RessourcesCost" instance=ExtResource( 6 )]
+margin_left = 140.0
+margin_right = 183.0
+script = null
 [connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="OnCloseButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/TextureButton" to="." method="OnTextureButtonPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
