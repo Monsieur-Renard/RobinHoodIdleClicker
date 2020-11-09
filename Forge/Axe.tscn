@@ -3,6 +3,7 @@
 [ext_resource path="res://Forge/Tool.tscn" type="PackedScene" id=1]
 
 [node name="Axe" instance=ExtResource( 1 )]
+RessourceType = "Wood"
 
 [node name="Name" parent="." index="1"]
 text = "Axe"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Main Page/Buildings/Building.cs" type="Script" id=1]
 [ext_resource path="res://Main Page/Images/Forest.png" type="Texture" id=2]
@@ -14,13 +14,16 @@
 [ext_resource path="res://Assets/Sounds/Field.wav" type="AudioStream" id=12]
 [ext_resource path="res://Assets/Sounds/Forest.wav" type="AudioStream" id=13]
 
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
 [sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 3 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 41.393, 43.5343 )
 
 [node name="Building" type="Node2D"]
 script = ExtResource( 1 )
@@ -59,7 +62,7 @@ texture_normal = ExtResource( 10 )
 margin_top = 20.0
 margin_right = 150.0
 margin_bottom = 54.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Upgrade"
 
 [node name="ImageButton" type="TextureButton" parent="VBoxContainer"]
@@ -87,7 +90,7 @@ __meta__ = {
 [node name="NameLevel" type="Label" parent="DisplayContainer"]
 margin_right = 183.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Field - Level 1"
 align = 1
 __meta__ = {
@@ -129,8 +132,15 @@ stream = ExtResource( 11 )
 
 [node name="ForestSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 75.5952, 131.032 )
+shape = SubResource( 3 )
 [connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="OnCloseButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/ImageButton" to="." method="OnTextureButtonPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

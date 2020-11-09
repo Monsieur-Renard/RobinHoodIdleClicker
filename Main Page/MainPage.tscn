@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Main Page/Images/GrassBackground.png" type="Texture" id=1]
 [ext_resource path="res://Main Page/Top Menu/TopMenu.tscn" type="PackedScene" id=2]
@@ -9,13 +9,24 @@
 [ext_resource path="res://Main Page/Buildings/Camp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main Page/Buildings/BuildingForge.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Forge/Forge.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Main Page/MainPage.cs" type="Script" id=10]
+[ext_resource path="res://Main Page/Builder.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Main Page/Smoke.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 0 )
+}
 
 [node name="MainPage" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+Builder = ExtResource( 11 )
+Smoke = ExtResource( 12 )
 
 [node name="Background" type="NinePatchRect" parent="."]
 margin_right = 1024.0
@@ -51,7 +62,23 @@ position = Vector2( 843.618, 148.167 )
 
 [node name="ForgeWindow" parent="." instance=ExtResource( 9 )]
 visible = false
+anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_top = 0.0
 margin_right = 1024.0
 margin_bottom = 600.0
+
+[node name="BuilderPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="BuilderSpawnLocation" type="PathFollow2D" parent="BuilderPath"]
+
+[node name="BuilderTimer" type="Timer" parent="."]
+wait_time = 5.0
+[connection signal="BuilderNeeded" from="Buildings/BuildingFood" to="." method="OnBuilderNeeded"]
+[connection signal="Hit" from="Buildings/BuildingFood" to="." method="OnBuildingHit"]
+[connection signal="Hit" from="Buildings/BuildingGold" to="." method="OnBuildingHit"]
+[connection signal="Hit" from="Buildings/BuildingWood" to="." method="OnBuildingHit"]
+[connection signal="Hit" from="Buildings/BuildingStone" to="." method="OnBuildingHit"]
+[connection signal="timeout" from="BuilderTimer" to="." method="OnBuilderTimeTimeout"]

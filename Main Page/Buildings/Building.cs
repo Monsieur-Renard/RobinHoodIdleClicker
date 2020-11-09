@@ -14,6 +14,10 @@ public class Building : Node2D
     public string BuildingName;
     [Export]
     public int NumberOfWorkers;
+    [Signal]
+    public delegate void Hit();
+    [Signal]
+    public delegate void BuilderNeeded();
 
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
     private int MaxLevel = 100;
@@ -91,11 +95,9 @@ public class Building : Node2D
 
     public void OnTextureButtonPressed()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
+        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");       
 
-        double amountGained = BaseValue * Level;
-        GD.Print(amountGained);
-        GD.Print("Base level : " + BaseValue);
+        double amountGained =RessourceGained();
         forestSound.Stop();
         mineSound.Stop();
         fieldSound.Stop();
@@ -131,6 +133,10 @@ public class Building : Node2D
         var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
         Level++;
+        if (Level % 5 == 0)
+        {
+            EmitSignal("BuilderNeeded");
+        }
         globalVariables.GoldAmount -= cost.goldCost;
         globalVariables.WoodAmount -= cost.woodCost;
         globalVariables.StoneAmount -= cost.stoneCost;
@@ -149,7 +155,7 @@ public class Building : Node2D
 
     // Display building's information
     public void OnExpandButtonPressed()
-    {
+    {       
         background.Visible = true;
         background.SetGlobalPosition(new Vector2(398, 8), false);
         displayContainer.Visible = true;
@@ -165,6 +171,12 @@ public class Building : Node2D
         displayContainer.Visible = false;
         closeButton.Visible = false;
         expandButton.Visible = true;
+    }
+
+    // When builder collides with building
+    public void OnArea2DBodyEntered(PhysicsBody2D body)
+    {
+        EmitSignal("Hit");        
     }
 
     public void OnTimerTimeout()
@@ -191,7 +203,6 @@ public class Building : Node2D
         }
     }
 
-
     // Check if player has enough ressources to upgrade building
     public bool EnoughRessourcesForUpgrade()
     {
@@ -209,7 +220,7 @@ public class Building : Node2D
     // Check if player has enough ressources to buy gold
     public bool EnoughRessourcesForGold()
     {
-        double amountGained = BaseValue * Level;
+        double amountGained = RessourceGained();
         bool enoughRessources = false;
         var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
         if ((globalVariables.WoodAmount / 2 >= amountGained) && (globalVariables.StoneAmount / 2 >= amountGained))
@@ -220,12 +231,39 @@ public class Building : Node2D
         return enoughRessources;
     }
 
+    // Calculate ressource gain
+    private double RessourceGained()
+    {
+        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
+        int toolLevel = 1; 
+
+        switch (RessourceType)
+        {
+            case "Wood":
+                toolLevel = globalVariables.AxeLevel;
+                break;
+            case "Stone":
+                toolLevel = globalVariables.PickaxeLevel;
+                break;
+            case "Food":
+                toolLevel = globalVariables.PitchforkLevel;
+                break;
+            case "Gold":
+                toolLevel = 1;
+                break;
+            default:
+                break;
+        }
+
+        return BaseValue * Level * toolLevel;       
+    }
+
+    // Fill up cost dictionnary
     public void PopulateCostDictionnary()
     {
         for (int i = 0; i < MaxLevel; i++)
         {
             _upgradeCost.Add(i, new RessourceCost(Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2))));
         }
-    }
-     
+    }   
 }
