@@ -19,12 +19,7 @@ public class TitlePage : MarginContainer
         timer.Start();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
-    {
-        
-    }
-
+    // Called when timer time's out
     public void OnTimerTimeout()
     {
         var timer = GetNode<Timer>("Timer");
@@ -40,6 +35,7 @@ public class TitlePage : MarginContainer
         
     }
 
+    // Go to Main Game scene
     public void OnNewGamePressed()
     {
         GetTree().ChangeScene("res://Main Page/MainPage.tscn");

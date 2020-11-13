@@ -13,10 +13,36 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Reference",
+"class": "WAT",
+"language": "GDScript",
+"path": "res://addons/WAT/namespace.gd"
+}, {
+"base": "Node",
+"class": "WATTest",
+"language": "GDScript",
+"path": "res://addons/WAT/core/test/test.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"WAT": "",
+"WATTest": ""
 }
+RunInEngine=true
+
+[WAT]
+
+Test_Directory="res://tests"
+Results_Directory="res://tests/results/WAT"
+Minimize_Window_When_Running_Tests=false
+TestStrategy={
+"repeat": 1,
+"strategy": "RunAll"
+}
+Tags=PoolStringArray(  )
+Window_Size=Vector2( 1280, 720 )
+Display=8
 
 [application]
 
@@ -34,6 +60,10 @@ settings/stdout/verbose_stdout=true
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "WAT" )
 
 [gdnative]
 

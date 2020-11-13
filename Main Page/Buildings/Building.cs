@@ -1,23 +1,25 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Runtime.CompilerServices;
 
 public class Building : Node2D
 {
     [Export]
-    private string RessourceType;
+    public string RessourceType;
     [Export]
-    private double BaseValue;
+    public double BaseValue;
     [Export]
-    private int Level;
+    public int Level;
     [Export]
     public string BuildingName;
     [Export]
     public int NumberOfWorkers;
+
     [Signal]
     public delegate void Hit();
     [Signal]
-    public delegate void BuilderNeeded();
+    public delegate void BuilderNeeded(Vector2 position);
 
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
     private int MaxLevel = 100;
@@ -94,10 +96,8 @@ public class Building : Node2D
     }
 
     public void OnTextureButtonPressed()
-    {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");       
-
-        double amountGained =RessourceGained();
+    {    
+        double amountGained = RessourceGained();
         forestSound.Stop();
         mineSound.Stop();
         fieldSound.Stop();
@@ -106,21 +106,21 @@ public class Building : Node2D
         switch (RessourceType)
         {
             case "Wood":
-                globalVariables.WoodAmount += amountGained;
+                GlobalVariables.WoodAmount += amountGained;
                 forestSound.Play();
                 break;
             case "Stone":
-                globalVariables.StoneAmount += amountGained;
+                GlobalVariables.StoneAmount += amountGained;
                 mineSound.Play();
                 break;
             case "Food":
-                globalVariables.FoodAmount += amountGained;
+                GlobalVariables.FoodAmount += amountGained;
                 fieldSound.Play();
                 break;
             case "Gold":
-                globalVariables.GoldAmount += amountGained;
-                globalVariables.StoneAmount -= amountGained / 2;
-                globalVariables.WoodAmount -= amountGained / 2;
+                GlobalVariables.GoldAmount += amountGained;
+                GlobalVariables.StoneAmount -= amountGained / 2;
+                GlobalVariables.WoodAmount -= amountGained / 2;
                 break;
             default:
                 break;
@@ -130,17 +130,15 @@ public class Building : Node2D
     // Upgrade building and substract ressource amount
     public void OnUpgradeButtonPressed()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-
         Level++;
         if (Level % 5 == 0)
         {
-            EmitSignal("BuilderNeeded");
+            EmitSignal("BuilderNeeded", imageButton.RectGlobalPosition);
         }
-        globalVariables.GoldAmount -= cost.goldCost;
-        globalVariables.WoodAmount -= cost.woodCost;
-        globalVariables.StoneAmount -= cost.stoneCost;
-        globalVariables.FoodAmount -= cost.foodCost;
+        GlobalVariables.GoldAmount -= cost.goldCost;
+        GlobalVariables.WoodAmount -= cost.woodCost;
+        GlobalVariables.StoneAmount -= cost.stoneCost;
+        GlobalVariables.FoodAmount -= cost.foodCost;
 
         // Change level display
         nameLevel.Text = BuildingName + " - lvl " + Level;
@@ -155,7 +153,7 @@ public class Building : Node2D
 
     // Display building's information
     public void OnExpandButtonPressed()
-    {       
+    {
         background.Visible = true;
         background.SetGlobalPosition(new Vector2(398, 8), false);
         displayContainer.Visible = true;
@@ -181,22 +179,20 @@ public class Building : Node2D
 
     public void OnTimerTimeout()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-
         // Passive ressource gain each second
         switch (RessourceType)
         {
             case "Wood":
-                globalVariables.WoodAmount += NumberOfWorkers * Level;
+                GlobalVariables.WoodAmount += NumberOfWorkers * Level;
                 break;
             case "Stone":
-                globalVariables.StoneAmount += NumberOfWorkers * Level;
+                GlobalVariables.StoneAmount += NumberOfWorkers * Level;
                 break;
             case "Food":
-                globalVariables.FoodAmount += NumberOfWorkers * Level;
+                GlobalVariables.FoodAmount += NumberOfWorkers * Level;
                 break;
             case "Gold":
-                globalVariables.GoldAmount += NumberOfWorkers * Level;
+                GlobalVariables.GoldAmount += NumberOfWorkers * Level;
                 break;
             default:
                 break;
@@ -207,9 +203,8 @@ public class Building : Node2D
     public bool EnoughRessourcesForUpgrade()
     {
         bool enoughRessources = false;
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
-        if (globalVariables.GoldAmount >= cost.goldCost && globalVariables.WoodAmount >= cost.woodCost && globalVariables.StoneAmount >= cost.stoneCost && globalVariables.FoodAmount >= cost.foodCost && Level < MaxLevel)
+        if (GlobalVariables.GoldAmount >= cost.goldCost && GlobalVariables.WoodAmount >= cost.woodCost && GlobalVariables.StoneAmount >= cost.stoneCost && GlobalVariables.FoodAmount >= cost.foodCost && Level < MaxLevel)
         {
             enoughRessources = true;
         }
@@ -222,8 +217,8 @@ public class Building : Node2D
     {
         double amountGained = RessourceGained();
         bool enoughRessources = false;
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-        if ((globalVariables.WoodAmount / 2 >= amountGained) && (globalVariables.StoneAmount / 2 >= amountGained))
+
+        if ((GlobalVariables.WoodAmount / 2 >= amountGained) && (GlobalVariables.StoneAmount / 2 >= amountGained))
         {
             enoughRessources = true;
         }
@@ -232,21 +227,20 @@ public class Building : Node2D
     }
 
     // Calculate ressource gain
-    private double RessourceGained()
+    public double RessourceGained()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
         int toolLevel = 1; 
 
         switch (RessourceType)
         {
             case "Wood":
-                toolLevel = globalVariables.AxeLevel;
+                toolLevel = GlobalVariables.AxeLevel;
                 break;
             case "Stone":
-                toolLevel = globalVariables.PickaxeLevel;
+                toolLevel = GlobalVariables.PickaxeLevel;
                 break;
             case "Food":
-                toolLevel = globalVariables.PitchforkLevel;
+                toolLevel = GlobalVariables.PitchforkLevel;
                 break;
             case "Gold":
                 toolLevel = 1;
@@ -259,7 +253,7 @@ public class Building : Node2D
     }
 
     // Fill up cost dictionnary
-    public void PopulateCostDictionnary()
+    private void PopulateCostDictionnary()
     {
         for (int i = 0; i < MaxLevel; i++)
         {

@@ -57,9 +57,9 @@ __meta__ = {
 
 [node name="CloseButton" type="TextureButton" parent="VBoxContainer"]
 visible = false
-margin_top = 20.0
+margin_top = 24.0
 margin_right = 150.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 texture_normal = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false

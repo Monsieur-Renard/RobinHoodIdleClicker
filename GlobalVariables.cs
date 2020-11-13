@@ -4,13 +4,13 @@ using System;
 
 public class GlobalVariables : Node
 {
-    public double WoodAmount;
-    public double StoneAmount;
-    public double FoodAmount;
-    public double GoldAmount;
-    public int PitchforkLevel;
-    public int PickaxeLevel;
-    public int AxeLevel;
+    public static double WoodAmount;
+    public static double StoneAmount;
+    public static double FoodAmount;
+    public static double GoldAmount;
+    public static int PitchforkLevel;
+    public static int PickaxeLevel;
+    public static int AxeLevel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -23,10 +23,4 @@ public class GlobalVariables : Node
         PickaxeLevel = 1;
         AxeLevel = 1;
     }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }

@@ -4,9 +4,9 @@ using System;
 
 public class Camp : Node2D
 {
-    Label ForestLabel, MineLabel, FieldLabel;
     private int TotalNumberOfWorkers;
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
+    Label ForestLabel, MineLabel, FieldLabel;
     TextureButton expandButton;
     TextureButton closeButton;
     VBoxContainer displayContainer;

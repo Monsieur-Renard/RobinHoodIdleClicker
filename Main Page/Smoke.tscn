@@ -19,5 +19,5 @@ animations = [ {
 scale = Vector2( 6, 6 )
 frames = SubResource( 1 )
 animation = "Build"
-frame = 3
+frame = 2
 playing = true

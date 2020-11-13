@@ -78,7 +78,10 @@ curve = SubResource( 1 )
 wait_time = 5.0
 [connection signal="BuilderNeeded" from="Buildings/BuildingFood" to="." method="OnBuilderNeeded"]
 [connection signal="Hit" from="Buildings/BuildingFood" to="." method="OnBuildingHit"]
+[connection signal="BuilderNeeded" from="Buildings/BuildingGold" to="." method="OnBuilderNeeded"]
 [connection signal="Hit" from="Buildings/BuildingGold" to="." method="OnBuildingHit"]
+[connection signal="BuilderNeeded" from="Buildings/BuildingWood" to="." method="OnBuilderNeeded"]
 [connection signal="Hit" from="Buildings/BuildingWood" to="." method="OnBuildingHit"]
+[connection signal="BuilderNeeded" from="Buildings/BuildingStone" to="." method="OnBuilderNeeded"]
 [connection signal="Hit" from="Buildings/BuildingStone" to="." method="OnBuildingHit"]
 [connection signal="timeout" from="BuilderTimer" to="." method="OnBuilderTimeTimeout"]

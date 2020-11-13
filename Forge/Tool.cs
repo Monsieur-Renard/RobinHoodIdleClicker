@@ -9,7 +9,7 @@ public class Tool : VBoxContainer
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
     private int MaxLevel = 100;
     RessourceCost cost;
-    private int Level;
+    public int Level;
     Button upgradeButton;
 
     Label levelLabel, goldCostLabel;
@@ -17,19 +17,17 @@ public class Tool : VBoxContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
-
         // Set tool level
         switch (RessourceType)
         {
             case "Wood":
-                Level = globalVariables.AxeLevel;
+                Level = GlobalVariables.AxeLevel;
                 break;
             case "Stone":
-                Level = globalVariables.PickaxeLevel;
+                Level = GlobalVariables.PickaxeLevel;
                 break;
             case "Food":
-                Level = globalVariables.PitchforkLevel;
+                Level = GlobalVariables.PitchforkLevel;
                 break;
             default:
                 break;
@@ -66,9 +64,8 @@ public class Tool : VBoxContainer
 
     public void OnUpgradeButtonPressed()
     {
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
         Level++;
-        globalVariables.GoldAmount -= cost.goldCost;
+        GlobalVariables.GoldAmount -= cost.goldCost;
 
         // Change level display
         levelLabel.Text = "Level " + Level;
@@ -80,13 +77,13 @@ public class Tool : VBoxContainer
         switch (RessourceType)
         {
             case "Wood":
-                globalVariables.AxeLevel++;
+                GlobalVariables.AxeLevel++;
                 break;
             case "Stone":
-                globalVariables.PickaxeLevel++;
+                GlobalVariables.PickaxeLevel++;
                 break;
             case "Food":
-                globalVariables.PitchforkLevel++;
+                GlobalVariables.PitchforkLevel++;
                 break;
             default:
                 break;
@@ -94,12 +91,11 @@ public class Tool : VBoxContainer
     }
 
     // Check if player has enough ressources to upgrade building
-    public bool EnoughRessourcesForUpgrade()
+    private  bool EnoughRessourcesForUpgrade()
     {
         bool enoughRessources = false;
-        var globalVariables = (GlobalVariables)GetNode("/root/GlobalVariables");
 
-        if (globalVariables.GoldAmount >= cost.goldCost && Level < MaxLevel)
+        if (GlobalVariables.GoldAmount >= cost.goldCost && Level < MaxLevel)
         {
             enoughRessources = true;
         }
