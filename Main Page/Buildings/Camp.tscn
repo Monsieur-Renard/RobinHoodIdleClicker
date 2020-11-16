@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/GoldAmount.tscn" type="PackedScene" id=2]
@@ -10,6 +10,10 @@
 [ext_resource path="res://Main Page/Images/Close.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 24
 font_data = ExtResource( 1 )
 
@@ -26,11 +30,11 @@ script = ExtResource( 5 )
 
 [node name="Background" type="NinePatchRect" parent="."]
 visible = false
-margin_left = 370.085
+margin_left = 360.0
 margin_top = 73.4161
 margin_right = 622.085
 margin_bottom = 283.416
-rect_min_size = Vector2( 265, 212 )
+rect_min_size = Vector2( 285, 290 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,21 +91,57 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Assignement"]
+[node name="LabelInstruction" type="Label" parent="Assignement"]
 margin_right = 242.0
-margin_bottom = 59.0
+margin_bottom = 28.0
 custom_fonts/font = SubResource( 1 )
-text = "Assign a merryman
-"
+text = "Assign a merryman"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RessourceCost" type="HBoxContainer" parent="Assignement"]
-margin_top = 63.0
+[node name="CenterContainer" type="CenterContainer" parent="Assignement"]
+margin_top = 32.0
 margin_right = 242.0
-margin_bottom = 91.0
+margin_bottom = 66.0
+
+[node name="BuyButton" type="Button" parent="Assignement/CenterContainer"]
+margin_left = 88.0
+margin_right = 153.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 65, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Buy"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Assignement"]
+margin_top = 70.0
+margin_right = 242.0
+margin_bottom = 98.0
+
+[node name="LabelNumberText" type="Label" parent="Assignement/VBoxContainer"]
+margin_right = 161.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+text = "Unassigned: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelQuantity" type="Label" parent="Assignement/VBoxContainer"]
+margin_left = 165.0
+margin_right = 179.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RessourceCost" type="HBoxContainer" parent="Assignement"]
+margin_top = 102.0
+margin_right = 242.0
+margin_bottom = 130.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -122,18 +162,28 @@ margin_right = 242.0
 script = null
 
 [node name="Forest" type="HBoxContainer" parent="Assignement"]
-margin_top = 95.0
+margin_top = 134.0
 margin_right = 242.0
-margin_bottom = 129.0
+margin_bottom = 168.0
 
-[node name="ForestLabel" type="Label" parent="Assignement/Forest"]
+[node name="NameLabel" type="Label" parent="Assignement/Forest"]
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Forest"
+
+[node name="NumberLabel" type="Label" parent="Assignement/Forest"]
+margin_left = 85.0
 margin_top = 3.0
 margin_right = 144.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 2 )
+align = 2
 
-[node name="ForestButton" type="Button" parent="Assignement/Forest"]
+[node name="Button" type="Button" parent="Assignement/Forest"]
 margin_left = 148.0
 margin_right = 242.0
 margin_bottom = 34.0
@@ -141,18 +191,28 @@ custom_fonts/font = SubResource( 3 )
 text = "Assign"
 
 [node name="Mine" type="HBoxContainer" parent="Assignement"]
-margin_top = 133.0
+margin_top = 172.0
 margin_right = 242.0
-margin_bottom = 167.0
+margin_bottom = 206.0
 
-[node name="MineLabel" type="Label" parent="Assignement/Mine"]
+[node name="NameLabel" type="Label" parent="Assignement/Mine"]
+margin_top = 3.0
+margin_right = 70.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Mine"
+
+[node name="NumberLabel" type="Label" parent="Assignement/Mine"]
+margin_left = 74.0
 margin_top = 3.0
 margin_right = 144.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 2 )
+align = 2
 
-[node name="MineButton" type="Button" parent="Assignement/Mine"]
+[node name="Button" type="Button" parent="Assignement/Mine"]
 margin_left = 148.0
 margin_right = 242.0
 margin_bottom = 34.0
@@ -160,18 +220,57 @@ custom_fonts/font = SubResource( 3 )
 text = "Assign"
 
 [node name="Field" type="HBoxContainer" parent="Assignement"]
-margin_top = 171.0
+margin_top = 210.0
 margin_right = 242.0
-margin_bottom = 205.0
+margin_bottom = 244.0
 
-[node name="FieldLabel" type="Label" parent="Assignement/Field"]
+[node name="NameLabel" type="Label" parent="Assignement/Field"]
+margin_top = 3.0
+margin_right = 70.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Field"
+
+[node name="NumberLabel" type="Label" parent="Assignement/Field"]
+margin_left = 74.0
 margin_top = 3.0
 margin_right = 144.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 2 )
+align = 2
 
-[node name="FieldButton" type="Button" parent="Assignement/Field"]
+[node name="Button" type="Button" parent="Assignement/Field"]
+margin_left = 148.0
+margin_right = 242.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 3 )
+text = "Assign"
+
+[node name="Village" type="HBoxContainer" parent="Assignement"]
+margin_top = 248.0
+margin_right = 242.0
+margin_bottom = 282.0
+
+[node name="NameLabel" type="Label" parent="Assignement/Village"]
+margin_top = 3.0
+margin_right = 86.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Village"
+
+[node name="NumberLabel" type="Label" parent="Assignement/Village"]
+margin_left = 90.0
+margin_top = 3.0
+margin_right = 144.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+align = 2
+
+[node name="Button" type="Button" parent="Assignement/Village"]
 margin_left = 148.0
 margin_right = 242.0
 margin_bottom = 34.0
@@ -179,6 +278,8 @@ custom_fonts/font = SubResource( 3 )
 text = "Assign"
 [connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="OnCloseButtonPressed"]
-[connection signal="pressed" from="Assignement/Forest/ForestButton" to="." method="OnForestButtonPressed"]
-[connection signal="pressed" from="Assignement/Mine/MineButton" to="." method="OnMineButtonPressed"]
-[connection signal="pressed" from="Assignement/Field/FieldButton" to="." method="OnFieldButtonPressed"]
+[connection signal="pressed" from="Assignement/CenterContainer/BuyButton" to="." method="OnBuyButtonPressed"]
+[connection signal="pressed" from="Assignement/Forest/Button" to="." method="OnForestButtonPressed"]
+[connection signal="pressed" from="Assignement/Mine/Button" to="." method="OnMineButtonPressed"]
+[connection signal="pressed" from="Assignement/Field/Button" to="." method="OnFieldButtonPressed"]
+[connection signal="pressed" from="Assignement/Village/Button" to="." method="OnVillageButtonPressed"]

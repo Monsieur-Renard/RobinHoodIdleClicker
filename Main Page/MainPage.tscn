@@ -42,14 +42,14 @@ margin_bottom = 600.0
 [node name="Buildings" type="Node2D" parent="."]
 
 [node name="BuildingFood" parent="Buildings" instance=ExtResource( 6 )]
-position = Vector2( 341.719, 260.294 )
+position = Vector2( 368, 360 )
 
 [node name="BuildingGold" parent="Buildings" instance=ExtResource( 5 )]
 position = Vector2( 848.957, 388.438 )
 BaseValue = 1.0
 
 [node name="BuildingWood" parent="Buildings" instance=ExtResource( 4 )]
-position = Vector2( 565.972, 173.529 )
+position = Vector2( 616, 168 )
 
 [node name="BuildingStone" parent="Buildings" instance=ExtResource( 3 )]
 position = Vector2( 38.7104, 383.099 )

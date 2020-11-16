@@ -35,7 +35,7 @@ public class MainPage : MarginContainer
     // Spawn a builder when signal BuilderNeeded is lit
     public void OnBuilderNeeded(Vector2 position)
     {
-        // Choose location on Path2D depending of building ARRANGER OFFSET
+        // Choose location on Path2D depending of building
         var builderSpawnLocation = GetNode<PathFollow2D>("BuilderPath/BuilderSpawnLocation");
         builderSpawnLocation.Offset = position.x + 80;
 
@@ -45,7 +45,6 @@ public class MainPage : MarginContainer
         builderInstance = (RigidBody2D)Builder.Instance();
         AddChild(builderInstance);
         builderInstance.Position = builderSpawnLocation.Position;
-
 
         // Set builder's velocity
         builderInstance.LinearVelocity = new Vector2(150f, 0).Rotated(direction);
