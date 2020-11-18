@@ -48,6 +48,7 @@ Display=8
 
 config/name="Robin Hood Idle Clicker"
 run/main_scene="res://Title Page/TitlePage.tscn"
+config/icon="res://Title Page/Images/Logo.png"
 
 [autoload]
 

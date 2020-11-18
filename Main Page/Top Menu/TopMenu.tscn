@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/WoodAmount.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main Page/Top Menu/Ressources Amount/StoneAmount.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Main Page/Top Menu/Ressources Gain/GoldGain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main Page/Top Menu/Ressources Gain/FoodGain.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Main Page/Top Menu/Ressources Gain/StoneGain.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Main Page/Top Menu/TopMenu.cs" type="Script" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -29,6 +30,7 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -113,3 +115,4 @@ margin_right = 133.0
 margin_bottom = 98.0
 custom_fonts/font = SubResource( 3 )
 text = "Save"
+[connection signal="pressed" from="HBoxContainer/Save/SaveButton" to="." method="OnSaveButtonPressed"]

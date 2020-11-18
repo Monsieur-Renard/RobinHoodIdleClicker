@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class TitlePage : MarginContainer
 {
@@ -39,5 +40,54 @@ public class TitlePage : MarginContainer
     public void OnNewGamePressed()
     {
         GetTree().ChangeScene("res://Main Page/MainPage.tscn");
+    }
+
+    // Loads the game
+    public void OnContinuePressed()
+    {
+        var nextLevelResource = ResourceLoader.Load("res://Main Page/MainPage.tscn") as PackedScene;
+        MainPage nextLevel = (MainPage)nextLevelResource.Instance();
+        GlobalVariables.LoadSavedGame = true;
+        GetTree().Root.CallDeferred("add_child", nextLevel);
+        QueueFree();            
+    }
+
+    // Exits the game
+    public void OnQuitPressed()
+    {
+        GetTree().Quit();
+    }
+
+    public void LoadGame()
+    {
+        var saveGame = new File();
+        if (!saveGame.FileExists("user://savegame.save"))
+            return;
+
+        var saveNodes = GetTree().GetNodesInGroup("Persist");
+        foreach (Node saveNode in saveNodes)
+            saveNode.QueueFree();
+
+        // Load the file line by line and process that dictionary to restore the object it represents
+        saveGame.Open("user://savegame.save", File.ModeFlags.Read);
+
+        while (saveGame.GetPosition() < saveGame.GetLen())
+        {
+            var nodeData = new Godot.Collections.Dictionary<string, object>((Godot.Collections.Dictionary)JSON.Parse(saveGame.GetLine()).Result);
+            var newObjectScene = (PackedScene)ResourceLoader.Load(nodeData["Filename"].ToString());
+            var newObject = (Node)newObjectScene.Instance();
+            GetNode(nodeData["Parent"].ToString()).AddChild(newObject);
+            newObject.Set("Position", new Vector2((float)nodeData["PosX"], (float)nodeData["PosY"]));
+
+            foreach (KeyValuePair<string, object> entry in nodeData)
+            {
+                string key = entry.Key.ToString();
+                if (key == "Filename" || key == "Parent" || key == "PosX" || key == "PosY")
+                    continue;
+                newObject.Set(key, entry.Value);
+            }
+        }
+
+        saveGame.Close();
     }
 }

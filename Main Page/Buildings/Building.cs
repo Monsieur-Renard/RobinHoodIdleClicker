@@ -40,7 +40,7 @@ public class Building : Node2D
 
         // Initializing name and level of building
         nameLevel = GetNode<Label>("DisplayContainer/NameLevel");
-        nameLevel.Text = BuildingName + " - lvl " + Level;
+        //nameLevel.Text = BuildingName + " - lvl " + Level;
 
         // Initializing ressource amount labels
         goldCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/GoldAmount/Value");
@@ -67,6 +67,25 @@ public class Building : Node2D
         fieldSound = GetNode<AudioStreamPlayer>("FieldSound");
         mineSound = GetNode<AudioStreamPlayer>("MineSound");
         forestSound = GetNode<AudioStreamPlayer>("ForestSound");
+
+        // Add to group to save
+        AddToGroup("Persist");
+
+        if (GlobalVariables.LoadSavedGame)
+            ReadyFromContinue();
+        else
+            nameLevel.Text = BuildingName + " - lvl " + Level;
+    }
+
+    public void ReadyFromContinue()
+    {
+        // Initializing building upgrade cost
+        cost = _upgradeCost[Level];
+        goldCostLabel.Text = cost.goldCost.ToString();
+        woodCostLabel.Text = cost.woodCost.ToString();
+        stoneCostLabel.Text = cost.stoneCost.ToString();
+        foodCostLabel.Text = cost.foodCost.ToString();
+        nameLevel.Text = BuildingName + " - lvl " + Level;
     }
 
     public override void _Process(float delta)
@@ -96,7 +115,7 @@ public class Building : Node2D
     }
 
     public void OnTextureButtonPressed()
-    {    
+    {
         double amountGained = RessourceGained();
         forestSound.Stop();
         mineSound.Stop();
@@ -197,6 +216,21 @@ public class Building : Node2D
             default:
                 break;
         }
+    }
+
+    // Serializes datas for save
+    public Godot.Collections.Dictionary<string, object> Save()
+    {
+        return new Godot.Collections.Dictionary<string, object>()
+        {
+            { "Filename", Filename },
+            { "Parent", GetParent().GetPath() },
+            { "PosX", Position.x },
+            { "PosY", Position.y },
+            { "BuildingName", BuildingName },
+            { "Level", Level },
+            { "NumberOfWorkers", NumberOfWorkers }
+        };
     }
 
     // Check if player has enough ressources to upgrade building

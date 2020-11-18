@@ -11,6 +11,7 @@ public class GlobalVariables : Node
     public static int PitchforkLevel;
     public static int PickaxeLevel;
     public static int AxeLevel;
+    public static bool LoadSavedGame;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

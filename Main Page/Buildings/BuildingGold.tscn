@@ -6,7 +6,7 @@
 
 [node name="BuildingGold" instance=ExtResource( 2 )]
 RessourceType = "Gold"
-BaseValue = 0.2
+BaseValue = 1.0
 Level = 1
 BuildingName = "Village"
 
