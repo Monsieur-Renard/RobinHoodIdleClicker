@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main Page/Images/coin_icon.jpg" type="Texture" id=1]
 [ext_resource path="res://Assets/Comfortaa-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Main Page/Top Menu/Ressources Gain/RessourceGain.cs" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -15,6 +16,7 @@ font_data = ExtResource( 2 )
 margin_right = 115.0
 margin_bottom = 28.0
 alignment = 2
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,3 +39,7 @@ margin_right = 115.0
 margin_bottom = 28.0
 custom_fonts/font = SubResource( 2 )
 text = "/ sec"
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

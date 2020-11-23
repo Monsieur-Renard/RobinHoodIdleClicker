@@ -10,7 +10,13 @@ public class TopMenu : MarginContainer
         
     }
 
-    public void OnSaveButtonPressed()
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(float delta)
+    {
+       
+    }
+
+        public void OnSaveButtonPressed()
     {
         var saveGame = new File();
         saveGame.Open("user://savegame.save", File.ModeFlags.Write);

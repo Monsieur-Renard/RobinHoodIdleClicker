@@ -83,4 +83,10 @@ margin_right = 148.0
 margin_bottom = 29.0
 custom_fonts/font = SubResource( 2 )
 text = "Upgrade"
+
+[node name="LoadTimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+autostart = true
 [connection signal="pressed" from="CenterContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
+[connection signal="timeout" from="LoadTimer" to="." method="OnLoadTimerTimeout"]

@@ -87,6 +87,8 @@ public class Building : Node2D
             foodCostLabel.Text = cost.foodCost.ToString();
             nameLevel.Text = BuildingName + " - lvl " + Level;
             loadChecked = false;
+
+            SetBuildingImage();
         }
     }
 
@@ -148,6 +150,11 @@ public class Building : Node2D
         }
     }
 
+    private void OnUpgradeTimerTimeout()
+    {
+        SetBuildingImage();
+    }
+
     // Upgrade building and substract ressource amount
     public void OnUpgradeButtonPressed()
     {
@@ -155,6 +162,12 @@ public class Building : Node2D
         if (Level % 5 == 0)
         {
             EmitSignal("BuilderNeeded", imageButton.RectGlobalPosition);
+            Timer timer = new Timer();
+            this.AddChild(timer);
+            timer.WaitTime = 6;
+            timer.Connect("timeout", this, "OnUpgradeTimerTimeout");
+            timer.Start();
+            GD.Print(timer.TimeLeft);
         }
         GlobalVariables.GoldAmount -= cost.goldCost;
         GlobalVariables.WoodAmount -= cost.woodCost;
@@ -295,5 +308,19 @@ public class Building : Node2D
         {
             _upgradeCost.Add(i, new RessourceCost(Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2)), Convert.ToInt32(Math.Pow(i, 2))));
         }
-    }   
+    }
+
+    // Set building image
+    private void SetBuildingImage()
+    {
+        int imageNumber = 1;
+
+        if (Level >= 5 && Level < 10)
+            imageNumber = 2;
+        else if (Level >= 10)
+            imageNumber = 3;
+        
+        imageButton.TextureNormal = (Texture)ResourceLoader.Load("res://Main Page/Images/" + BuildingName + "/" + BuildingName + imageNumber + ".png"); ;
+        
+    }
 }

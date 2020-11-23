@@ -5,24 +5,27 @@ public class RessourceAmount : HBoxContainer
 {
     [Export]
     private string RessourceType;
+    Label value;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        value = GetNode<Label>("Value");
+
         // Set the ressource amount on load
         switch (RessourceType)
         {      
             case "Wood":          
-                GetNode<Label>("Value").Text = GlobalVariables.WoodAmount.ToString();
+                value.Text = GlobalVariables.WoodAmount.ToString();
                 break;
             case "Stone":
-                GetNode<Label>("Value").Text = GlobalVariables.StoneAmount.ToString();
+                value.Text = GlobalVariables.StoneAmount.ToString();
                 break;
             case "Food":
-                GetNode<Label>("Value").Text = GlobalVariables.FoodAmount.ToString();
+                value.Text = GlobalVariables.FoodAmount.ToString();
                 break;
             case "Gold":
-                GetNode<Label>("Value").Text = GlobalVariables.GoldAmount.ToString();                            
+                value.Text = GlobalVariables.GoldAmount.ToString();                            
                 break;
             default:
                 break;
@@ -36,16 +39,16 @@ public class RessourceAmount : HBoxContainer
         switch (RessourceType)
         {
             case "Wood":
-                GetNode<Label>("Value").Text = GlobalVariables.WoodAmount.ToString();
+                value.Text = GlobalVariables.WoodAmount.ToString();
                 break;
             case "Stone":
-                GetNode<Label>("Value").Text = GlobalVariables.StoneAmount.ToString();
+                value.Text = GlobalVariables.StoneAmount.ToString();
                 break;
             case "Food":
-                GetNode<Label>("Value").Text = GlobalVariables.FoodAmount.ToString();
+                value.Text = GlobalVariables.FoodAmount.ToString();
                 break;
             case "Gold":
-                GetNode<Label>("Value").Text = GlobalVariables.GoldAmount.ToString();
+                value.Text = GlobalVariables.GoldAmount.ToString();
                 break;
             default:
                 break;

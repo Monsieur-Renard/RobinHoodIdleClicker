@@ -95,8 +95,10 @@ public class MainPage : MarginContainer
                 foreach (KeyValuePair<string, object> entry in nodeData)
                 {
                     string key = entry.Key.ToString();
+
                     if (key == "Filename" || key == "Parent" || key == "PosX" || key == "PosY")
                         continue;
+
                     newObject.Set(key, entry.Value);
                 }
             }         

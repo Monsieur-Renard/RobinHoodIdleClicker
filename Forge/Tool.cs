@@ -11,6 +11,7 @@ public class Tool : VBoxContainer
     RessourceCost cost;
     public int Level;
     Button upgradeButton;
+    bool loadChecked = false;
 
     Label levelLabel, goldCostLabel;
 
@@ -47,6 +48,9 @@ public class Tool : VBoxContainer
 
         // Initialize remaining nodes
         upgradeButton = GetNode<Button>("CenterContainer/UpgradeButton");
+
+        if (GlobalVariables.LoadSavedGame)
+            loadChecked = true;
     }
 
     public override void _Process(float delta)
@@ -59,6 +63,32 @@ public class Tool : VBoxContainer
         else
         {
             upgradeButton.Disabled = false;
+        }
+    }
+
+    public void OnLoadTimerTimeout()
+    {
+        if (loadChecked)
+        {
+            switch (RessourceType)
+            {
+                case "Wood":
+                    Level = GlobalVariables.AxeLevel;
+                    break;
+                case "Stone":
+                    Level = GlobalVariables.PickaxeLevel;
+                    break;
+                case "Food":
+                    Level = GlobalVariables.PitchforkLevel;
+                    break;
+                default:
+                    break;
+            }
+
+            cost = _upgradeCost[Level];
+            goldCostLabel.Text = cost.goldCost.ToString();
+            levelLabel.Text = "Level " + Level;
+            loadChecked = false;
         }
     }
 
