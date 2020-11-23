@@ -20,7 +20,7 @@ public class TitlePage : MarginContainer
         timer.Start();
     }
 
-    // Called when timer time's out
+    // Called when timer's times out
     public void OnTimerTimeout()
     {
         var timer = GetNode<Timer>("Timer");

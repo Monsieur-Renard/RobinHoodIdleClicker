@@ -16,12 +16,31 @@ public class GlobalVariables : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        WoodAmount = 0;
-        StoneAmount = 0;
-        FoodAmount = 0;
-        GoldAmount = 0;
-        PitchforkLevel = 1;
-        PickaxeLevel = 1;
-        AxeLevel = 1;
+        if (!LoadSavedGame)
+        {
+            WoodAmount = 0;
+            StoneAmount = 0;
+            FoodAmount = 0;
+            GoldAmount = 0;
+            PitchforkLevel = 1;
+            PickaxeLevel = 1;
+            AxeLevel = 1;
+        }
+    }
+
+    // Serializes datas for save
+    public static Godot.Collections.Dictionary<string, object> Save()
+    {
+        return new Godot.Collections.Dictionary<string, object>()
+        {
+            { "Filename", "GlobalVariables" },
+            { "WoodAmount", WoodAmount },
+            { "StoneAmount", StoneAmount },
+            { "FoodAmount", FoodAmount },
+            { "GoldAmount", GoldAmount },
+            { "PitchforkLevel", PitchforkLevel },
+            { "PickaxeLevel", PickaxeLevel },
+            { "AxeLevel", AxeLevel }
+        };
     }
 }

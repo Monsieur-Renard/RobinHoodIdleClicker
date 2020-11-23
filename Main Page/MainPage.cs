@@ -19,16 +19,17 @@ public class MainPage : MarginContainer
     {
         builderTimer = GetNode<Timer>("BuilderTimer");
         if (GlobalVariables.LoadSavedGame)
+        {
             LoadGame();
+        }
     }
 
-    public void OnTestPressed()
-    {
-        LoadGame();
-    }
-
+    // Loads game from local file
     public void LoadGame()
-    {     
+    {
+        double woodTemp = 0, stoneTemp = 0, foodTemp = 0, goldTemp = 0;
+        int pitchforkTemp = 1, pickaxeTemp = 1, axeTemp = 1;
+
         var saveGame = new File();
         if (!saveGame.FileExists("user://savegame.save"))
             return;
@@ -41,21 +42,64 @@ public class MainPage : MarginContainer
         saveGame.Open("user://savegame.save", File.ModeFlags.Read);
 
         while (saveGame.GetPosition() < saveGame.GetLen())
-        {
+        {          
             var nodeData = new Godot.Collections.Dictionary<string, object>((Godot.Collections.Dictionary)JSON.Parse(saveGame.GetLine()).Result);
-            var newObjectScene = (PackedScene)ResourceLoader.Load(nodeData["Filename"].ToString());
-            Node2D newObject = (Node2D)newObjectScene.Instance();
-            GetNode(nodeData["Parent"].ToString()).AddChild(newObject);
-            newObject.Position = new Vector2((float)nodeData["PosX"], (float)nodeData["PosY"]);
-            //newObject.Set("Position", new Vector2((float)nodeData["PosX"]+i, (float)nodeData["PosY"]));
 
-            foreach (KeyValuePair<string, object> entry in nodeData)
+            if (nodeData.Values.Contains("GlobalVariables"))
             {
-                string key = entry.Key.ToString();
-                if (key == "Filename" || key == "Parent" || key == "PosX" || key == "PosY")
-                    continue;
-                newObject.Set(key, entry.Value);
+                foreach (KeyValuePair<string, object> entry in nodeData)
+                {
+                    string key = entry.Key.ToString();
+                    switch (key)
+                    {
+                        case "WoodAmount":
+                            woodTemp = Convert.ToDouble(entry.Value);
+                            GlobalVariables.WoodAmount = woodTemp;
+                            break;
+                        case "StoneAmount":
+                            stoneTemp = Convert.ToDouble(entry.Value);
+                            GlobalVariables.StoneAmount = stoneTemp;
+                            break;
+                        case "FoodAmount":
+                            foodTemp = Convert.ToDouble(entry.Value);
+                            GlobalVariables.FoodAmount = foodTemp;
+                            break;
+                        case "GoldAmount":
+                            goldTemp = Convert.ToDouble(entry.Value);
+                            GlobalVariables.GoldAmount = goldTemp;
+                            break;
+                        case "PitchforkLevel":
+                            pitchforkTemp = Convert.ToInt32(entry.Value);
+                            GlobalVariables.PitchforkLevel = pitchforkTemp;
+                            break;
+                        case "PickaxeLevel":
+                            pickaxeTemp = Convert.ToInt32(entry.Value);
+                            GlobalVariables.PickaxeLevel = pickaxeTemp;
+                            break;
+                        case "AxeLevel":
+                            axeTemp = Convert.ToInt32(entry.Value);
+                            GlobalVariables.AxeLevel = axeTemp;
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
+            else
+            {
+                var newObjectScene = (PackedScene)ResourceLoader.Load(nodeData["Filename"].ToString());
+                Node2D newObject = (Node2D)newObjectScene.Instance();
+                GetNode(nodeData["Parent"].ToString()).AddChild(newObject);
+                newObject.Position = new Vector2((float)nodeData["PosX"], (float)nodeData["PosY"]);
+
+                foreach (KeyValuePair<string, object> entry in nodeData)
+                {
+                    string key = entry.Key.ToString();
+                    if (key == "Filename" || key == "Parent" || key == "PosX" || key == "PosY")
+                        continue;
+                    newObject.Set(key, entry.Value);
+                }
+            }         
         }
 
         saveGame.Close();

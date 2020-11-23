@@ -138,9 +138,15 @@ stream = ExtResource( 13 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 75.5952, 131.032 )
 shape = SubResource( 3 )
+
+[node name="LoadTimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+autostart = true
 [connection signal="pressed" from="VBoxContainer/ExpandButton" to="." method="OnExpandButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="OnCloseButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/ImageButton" to="." method="OnTextureButtonPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
 [connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="timeout" from="LoadTimer" to="." method="OnLoadTimerTimeout"]

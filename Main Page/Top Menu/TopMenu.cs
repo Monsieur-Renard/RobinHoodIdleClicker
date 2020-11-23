@@ -18,6 +18,7 @@ public class TopMenu : MarginContainer
         var saveNodes = GetTree().GetNodesInGroup("Persist");
         foreach (Node saveNode in saveNodes)
         {
+            GD.Print(saveNode.ToString());
             // Check the node is an instanced scene so it can be instanced again during load
             if (saveNode.Filename.Empty())
             {
@@ -38,6 +39,10 @@ public class TopMenu : MarginContainer
             // Store the save dictionnary as a new line in the save file
             saveGame.StoreLine(JSON.Print(nodeData));
         }
+
+        var globalNodeData = GlobalVariables.Save();
+        saveGame.StoreLine(JSON.Print(globalNodeData));
+
 
         saveGame.Close();
     }   

@@ -23,6 +23,7 @@ public class Building : Node2D
 
     private Dictionary<int, RessourceCost> _upgradeCost = new Dictionary<int, RessourceCost>();
     private int MaxLevel = 100;
+    private bool loadChecked = false;
 
     Label nameLevel, goldCostLabel, woodCostLabel, stoneCostLabel, foodCostLabel;
     Button upgradeButton;
@@ -37,23 +38,15 @@ public class Building : Node2D
     {
         // Initializing ressource cost dictionnary
         PopulateCostDictionnary();
-
+        
         // Initializing name and level of building
         nameLevel = GetNode<Label>("DisplayContainer/NameLevel");
-        //nameLevel.Text = BuildingName + " - lvl " + Level;
-
+        
         // Initializing ressource amount labels
         goldCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/GoldAmount/Value");
         woodCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/WoodAmount/Value");
         stoneCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/StoneAmount/Value");
-        foodCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/FoodAmount/Value");
-
-        // Initializing building upgrade cost
-        cost = _upgradeCost[Level];
-        goldCostLabel.Text = cost.goldCost.ToString();
-        woodCostLabel.Text = cost.woodCost.ToString();
-        stoneCostLabel.Text = cost.stoneCost.ToString();
-        foodCostLabel.Text = cost.foodCost.ToString();
+        foodCostLabel = GetNode<Label>("DisplayContainer/RessourcesCost/FoodAmount/Value");       
 
         // Initialize remaining nodes
         upgradeButton = GetNode<Button>("VBoxContainer/UpgradeButton");
@@ -71,14 +64,6 @@ public class Building : Node2D
         // Add to group to save
         AddToGroup("Persist");
 
-        if (GlobalVariables.LoadSavedGame)
-            ReadyFromContinue();
-        else
-            nameLevel.Text = BuildingName + " - lvl " + Level;
-    }
-
-    public void ReadyFromContinue()
-    {
         // Initializing building upgrade cost
         cost = _upgradeCost[Level];
         goldCostLabel.Text = cost.goldCost.ToString();
@@ -86,10 +71,27 @@ public class Building : Node2D
         stoneCostLabel.Text = cost.stoneCost.ToString();
         foodCostLabel.Text = cost.foodCost.ToString();
         nameLevel.Text = BuildingName + " - lvl " + Level;
+
+        if (GlobalVariables.LoadSavedGame)
+            loadChecked = true;
+    }
+
+    public void OnLoadTimerTimeout()
+    {
+        if (loadChecked)
+        {
+            cost = _upgradeCost[Level];
+            goldCostLabel.Text = cost.goldCost.ToString();
+            woodCostLabel.Text = cost.woodCost.ToString();
+            stoneCostLabel.Text = cost.stoneCost.ToString();
+            foodCostLabel.Text = cost.foodCost.ToString();
+            nameLevel.Text = BuildingName + " - lvl " + Level;
+            loadChecked = false;
+        }
     }
 
     public override void _Process(float delta)
-    {
+    {             
         // Check if there's enough ressources for upgrade to enable button
         if (!EnoughRessourcesForUpgrade())
         {
