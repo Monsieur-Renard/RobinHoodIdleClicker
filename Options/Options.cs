@@ -4,13 +4,17 @@ using System;
 public class Options : MarginContainer
 {
     private bool SoundMuted, MusicMuted;
+    private float MusicVolume, SoundVolume;
     CheckBox SoundMuteCheckbox, MusicMuteCheckBox;
+    HSlider SoundVolumeSlider, MusicVolumeSlider;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         SoundMuteCheckbox = GetNode<CheckBox>("VBoxContainer/SoundContainer/MuteCheckBox");
         MusicMuteCheckBox = GetNode<CheckBox>("VBoxContainer/MusicContainer/MuteCheckBox");
+        SoundVolumeSlider = GetNode<HSlider>("VBoxContainer/SoundContainer/VolumeSlider");
+        MusicVolumeSlider = GetNode<HSlider>("VBoxContainer/MusicContainer/VolumeSlider");
         
         // Check if sound is muted
         if (AudioServer.IsBusMute(AudioServer.GetBusIndex("Sound")))
@@ -35,6 +39,9 @@ public class Options : MarginContainer
             MusicMuteCheckBox.Pressed = false;
             MusicMuted = false;
         }
+
+        SoundVolumeSlider.Value = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Sound"));
+        MusicVolumeSlider.Value = AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Music"));
     }
 
     // Goes back to TitlePage scene without saving
@@ -62,6 +69,18 @@ public class Options : MarginContainer
             MusicMuted = false;
     }
 
+    // Change sound volume
+    public void OnSoundVolumeSliderValueChanged(float value)
+    {
+        SoundVolume = value;
+    }
+
+    // Change sound volume
+    public void OnMusicVolumeSliderValueChanged(float value)
+    {
+        MusicVolume = value;
+    }  
+
     // Saves options and goes back to TitlePage scene
     public void OnSavePressed()
     {
@@ -74,6 +93,9 @@ public class Options : MarginContainer
             AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), true);
         else
             AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), false);
+
+        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Sound"), SoundVolume);
+        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), MusicVolume);
 
         GetTree().ChangeScene("res://Title Page/TitlePage.tscn");
     }

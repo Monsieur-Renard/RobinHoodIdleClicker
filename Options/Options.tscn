@@ -80,8 +80,8 @@ margin_left = 237.0
 margin_right = 437.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 200, 24 )
-max_value = 10.0
-value = 5.0
+min_value = -80.0
+max_value = 0.0
 tick_count = 10
 ticks_on_borders = true
 
@@ -135,8 +135,8 @@ margin_left = 236.0
 margin_right = 436.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 200, 24 )
-max_value = 10.0
-value = 5.0
+min_value = -80.0
+max_value = 0.0
 tick_count = 10
 ticks_on_borders = true
 
@@ -195,6 +195,9 @@ margin_right = 337.0
 margin_bottom = 29.0
 custom_fonts/font = SubResource( 4 )
 text = "Cancel"
+[connection signal="value_changed" from="VBoxContainer/SoundContainer/VolumeSlider" to="." method="OnSoundVolumeSliderValueChanged"]
 [connection signal="pressed" from="VBoxContainer/SoundContainer/MuteCheckBox" to="." method="OnSoundMuteCheckBoxPressed"]
+[connection signal="value_changed" from="VBoxContainer/MusicContainer/VolumeSlider" to="." method="OnMusicVolumeSliderValueChanged"]
+[connection signal="pressed" from="VBoxContainer/MusicContainer/MuteCheckBox" to="." method="OnMusicMuteCheckBoxPressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer2/Save" to="." method="OnSavePressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer3/Cancel" to="." method="OnCancelPressed"]
