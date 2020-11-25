@@ -48,7 +48,7 @@ Display=8
 
 config/name="Robin Hood Idle Clicker"
 run/main_scene="res://Title Page/TitlePage.tscn"
-config/icon="res://Title Page/Images/Logo.png"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -74,6 +74,5 @@ singletons=[ "res://git_api.gdnlib" ]
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"

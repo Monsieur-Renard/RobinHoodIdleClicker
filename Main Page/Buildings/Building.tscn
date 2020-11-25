@@ -126,12 +126,15 @@ script = null
 
 [node name="FieldSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
+bus = "Sound"
 
 [node name="MineSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+bus = "Sound"
 
 [node name="ForestSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
+bus = "Sound"
 
 [node name="Area2D" type="Area2D" parent="."]
 

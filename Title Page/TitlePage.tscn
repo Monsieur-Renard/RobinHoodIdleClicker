@@ -1,14 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Title Page/Images/Logo.png" type="Texture" id=2]
 [ext_resource path="res://Title Page/TitlePage.cs" type="Script" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/Logo.png-144cdc73794191a5b42fb7c8abd1da15.stex"
+
+[sub_resource type="DynamicFont" id=2]
 size = 20
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 18
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
@@ -33,7 +36,7 @@ __meta__ = {
 
 [node name="Logo" type="Sprite" parent="."]
 position = Vector2( 224.389, 46.3257 )
-texture = ExtResource( 2 )
+texture = SubResource( 1 )
 centered = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
@@ -68,7 +71,7 @@ alignment = 1
 margin_top = 19.0
 margin_right = 123.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Continue"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/VBoxContainer/Menu Options"]
@@ -81,7 +84,7 @@ rect_min_size = Vector2( 0, 10 )
 margin_top = 66.0
 margin_right = 123.0
 margin_bottom = 95.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "New Game"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer2/VBoxContainer/Menu Options"]
@@ -94,7 +97,7 @@ rect_min_size = Vector2( 0, 10 )
 margin_top = 113.0
 margin_right = 123.0
 margin_bottom = 142.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Options"
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer2/VBoxContainer/Menu Options"]
@@ -107,16 +110,16 @@ rect_min_size = Vector2( 0, 10 )
 margin_top = 160.0
 margin_right = 123.0
 margin_bottom = 189.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Quit"
 
 [node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer"]
 margin_top = 212.0
 margin_right = 784.0
 margin_bottom = 233.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Version 0.2"
+text = "Version 0.3"
 align = 1
 valign = 2
 
@@ -124,5 +127,6 @@ valign = 2
 wait_time = 0.1
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/Menu Options/Continue" to="." method="OnContinuePressed"]
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/Menu Options/New Game" to="." method="OnNewGamePressed"]
+[connection signal="pressed" from="VBoxContainer2/VBoxContainer/Menu Options/Options" to="." method="OnOptionsPressed"]
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/Menu Options/Quit" to="." method="OnQuitPressed"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

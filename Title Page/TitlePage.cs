@@ -52,6 +52,12 @@ public class TitlePage : MarginContainer
         QueueFree();            
     }
 
+    // Go to Options scene
+    public void OnOptionsPressed()
+    {
+        GetTree().ChangeScene("res://Options/Options.tscn");
+    }
+
     // Exits the game
     public void OnQuitPressed()
     {
